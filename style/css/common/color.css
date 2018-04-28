@@ -1,0 +1,35 @@
+@charset "UTF-8";.dark,body {
+    color: #4c5161
+}
+
+.blue,a,a.dark:hover {
+    color: #00a5e0
+}
+
+a:hover {
+    color: #008cbf
+}
+
+.gray {
+    color: #a2a9b6
+}
+
+.white {
+    color: #fff
+}
+
+.green {
+    color: #01cf97
+}
+
+.orange {
+    color: #f28c48
+}
+
+.red {
+    color: #f4615c
+}
+
+.light {
+    color: #f7f9fa
+}
