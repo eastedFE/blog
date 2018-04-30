@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Object getter&&setter</title>
+</head>
+<body>
+	<div id="content"></div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var person = {};
+			Object.defineProperty(
+				person,'name',
+				{
+					configurable:true,
+					enumerable:true,
+					writable:true,
+					value:'thomas'
+				}
+			)
+			person.name = 'thomas22';
+			console.log(person.name);
+
+			var person2 = {};
+			Object.defineProperty(person2,'_init',{
+				configurable:true,
+				enumerable:false,
+				writable:true,
+				value:'tj'
+			});
+			Object.defineProperty(
+				person2,'name',
+				{
+					configurable:true,
+					enumerable:true,
+					get:function(){
+						return this._init;
+					},
+					set:function(newValue){
+						this._init = newValue;
+					}
+				}
+			)
+			person2.name = {a:1};
+			console.log(person2.name);
+			var book = {
+				year:2004,
+				edition:1
+			};
+			//求值策略 js把引用的地址作为值传递
+			function proxy(obj,prop){
+				var value = obj[prop];
+				Object.defineProperty(obj,prop,
+					{
+						get:function(){
+							return value;
+						},
+						set:function(newValue){
+							value = newValue;
+						}
+					}
+				);
+			}
+
+			proxy(book,'year');
+			book.year = 2005;
+
+		}
+	</script>
+</body>
+</html>

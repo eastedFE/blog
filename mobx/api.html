@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>mobx概念</title>
+    <style type="text/css">
+    	#api{
+    		box-sizing: border-box;
+    		height: 200px;
+    		width: 960px;
+    		padding: 10px;
+    		border: 1px solid #ccc;
+    		margin: 0 auto;
+    		overflow: auto;
+    	}
+    	.conent{
+    		width: 960px;
+    		margin: 0 auto;
+    		overflow: hidden;
+    	}
+    	#btn{
+    		width: 100px;
+    		height: 30px;
+    		float: left;
+    	}
+    	#view{
+    		overflow: hidden;
+    		padding-left: 10px;
+    	}
+    </style>
+    <script type="text/javascript" src="./mobx.umd.js"></script>
+</head>
+<body>
+	<div id="api"></div>
+	<div class="conent">
+		<button id="btn">按钮</button>
+		<div id="view"></div>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var temp = '';
+			var doc  = document.getElementById('api');
+			for(var key in mobx){
+				temp += '<p>'+key+'</p>';
+			}
+			doc.innerHTML = temp;
+			var observable = mobx.observable;
+			var autorun    = mobx.autorun;
+			var decorate   = mobx.decorate;
+			var computed   = mobx.computed;
+			var extendObservable = mobx.extendObservable;
+			//map
+			var map = observable.map({
+				test:'thomas'
+			});
+			autorun(function(){
+				//console.log('map value:',map.toJSON());
+				mapRender(map.toJSON());
+				//console.log(map.total());
+			})
+			//mapRender(map.toJSON());
+			var btn = document.getElementById('btn');
+			btn.onclick = function(){
+				map.set('test','wooo');
+				map.set('test1','thomas');	
+			};
+
+			//compute
+			class OrderLine{	
+				constructor(price){
+					this.price = price;
+					this.num = 1;
+				}
+				get total(){
+					return this.price*this.num;
+				}
+			}
+			decorate(OrderLine,{
+				price:observable,
+				num:observable,
+				total:computed
+			});
+
+			var apple = new OrderLine(100);
+			console.log(apple.total);
+
+			var person = observable({
+				first:'thomas',
+				last:'young',
+				get fullname(){
+					return this.first+'.'+this.last;
+				}
+			});
+			autorun(function(){
+				console.log(person.fullname);
+			});
+			person.first = 'thomas2';
+
+		}
+		function mapRender(map){
+			var view = document.getElementById('view');
+			var temp = '';
+			for(var key in map){
+				temp += '<p>'+key+':'+map[key]+'</p>'; 
+			}
+			view.innerHTML = temp;
+		}
+	</script>
+</body>
+</html>
