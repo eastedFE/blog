@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>history</title>
+    <script type="text/javascript" src="./history.js"></script>
+</head>
+<body>
+	<button id="btn">按钮</button>
+	<div></div>
+	<script type="text/javascript">
+		window.onload = function(){
+			console.log(history);
+			for(var key in History){
+				console.log('History static prop '+key);		
+			}
+			var createHashHistory = History.createHashHistory;
+			var createMemoryHistory = History.createMemoryHistory;
+			var createBrowserHistory = History.createBrowserHistory;
+			var history = createHashHistory();
+			var location = history.location;
+			var btn = document.getElementById('btn');
+			var unlisten = history.listen(function(location, action){
+				console.log(action, location.pathname, location.state);
+			});
+			history.push("/home", { some: "state" });
+			btn.onclick = function(){
+				history.push("/home", { some: "state" });
+			};
+		};
+	</script>
+</body>
+</html>
