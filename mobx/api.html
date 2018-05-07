@@ -84,6 +84,31 @@
 			var apple = new OrderLine(100);
 			console.log(apple.total);
 
+			function OrderLine2(price){
+				this.id = Math.random();
+				extendObservable(this,
+					{
+						price:price,
+						num:1,
+						get total(){
+							return this.price*this.num;
+						}
+					},
+					{
+						price:observable,
+						num:observable,
+						total:computed
+					}
+				);
+			}
+			var apple2 = new OrderLine2(200);
+			autorun(function(){
+				console.log('2222---',apple2.total);
+			});
+			apple2.price = 10;
+
+
+
 			var person = observable({
 				first:'thomas',
 				last:'young',

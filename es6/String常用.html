@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>String基本数据类型</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//1.国际化
+		//2.模板技术
+		//3.url.encode
+		//4.xss攻击
+		//5.判断数据类型 jquery的type方法
+		//6.
+		//6.设计模式---装饰者模式（拓展）
+		window.onload = function(){
+			//1.字符字面量 ASCII单字节
+			console.log('aaa\n');//换行
+			console.log('aaa\t');//tab
+			console.log('aaa\b');//空格
+			console.log('aaa\r');//回车 13
+			console.log('aaa\\');//斜杠
+			console.log('aaa\'');//单引号
+			console.log("aaa\"");//双引号
+			console.log('aaa\x41');//\xnn 16进制表示的字符 \x21
+			console.log('aaa\u03a3');//\xnnn 16进制表示Unicode字符
+			//2.转化为字符串
+			//2.1 toString（Object,Boolean,Number,String,Array）[except]:null、undefined
+			//2.2 new String(null) new String(undefined) 
+			//2.3 var ss = 10+''; //['aa','bb']+''
+			
+			//toString
+			var obj = {a:1};
+			console.log(obj.toString());//"[object Object]"
+			var flag = false;
+			console.log(flag.toString());//"false"
+			var num = 10;
+			console.log(num.toString(2));//"1010"
+			console.log(num.toString(8));//12
+			console.log(num.toString(10));//10
+			console.log(num.toString(16));//a
+			var str = '10';
+			console.log(str.toString(2));//10
+			var nul = null;
+			//console.log(nul.toString());//error
+			var unde = undefined;
+			//console.log(unde.toString());//error
+
+			console.log(new String(null).toString())//装饰者模式
+
+			//1.length遍历
+			//charAt charCodeAt
+			//concat slice substr substring
+			//indexOf lastIndexOf
+			//trim
+
+
+
+		};
+
+	</script>
+</body>
+</html>

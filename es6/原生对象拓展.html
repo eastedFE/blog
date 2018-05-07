@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>原生对象拓展</title>
+</head>
+<body>
+	<script type="text/javascript">
+		window.onload = function(){
+			//js拓展的方法
+			function StrUtils = function(){
+				var str = new String(arguments);
+				str.startWith = function(){
+					console.log('test');
+				}
+				return str;
+			}
+			//污染原型的
+			String.prototype.startWith = function(){
+
+			};
+		};
+	</script>
+</body>
+</html>
