@@ -10,7 +10,6 @@
 	<div></div>
 	<script type="text/javascript">
 		window.onload = function(){
-			console.log(history);
 			for(var key in History){
 				console.log('History static prop '+key);		
 			}
@@ -23,7 +22,7 @@
 			var unlisten = history.listen(function(location, action){
 				console.log(action, location.pathname, location.state);
 			});
-			history.push("/home", { some: "state" });
+			//history.push("/home", { some: "state" });
 			btn.onclick = function(){
 				history.push("/home", { some: "state" });
 			};
