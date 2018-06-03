@@ -25,15 +25,31 @@ function cNoop(){
 }
 function createHistory(){
 //创建history的抽象类
+	var options = arguments.length <= 0 || 
+				  arguments[0] === undefined 
+					? {} 
+					: arguments[0];
+  	var getCurrentLocation = options.getCurrentLocation;
 	
 	function listenBefore(){
 
+	}
+	function updateLocation(newLocation){
+		//缓存location
+		//计算新的location,更新所有的callbacks函数
+		//PUSH REPLACE的特性处理
+		location = newLocation;
+		changeListeners.forEach(function(listener){
+			listener(location);
+		})
 	}
 /**
  *	listen
  *	观察者中的add
  **/
+ 	var allKeys = [];
  	var changeListeners = [];
+ 	var location = undefined;
 	function listen(listener){
 		//1.添加当前的callback到全局的数组中
 		//2.立即更用当前的locaion更新callback函数（没有初始化）
@@ -41,6 +57,16 @@ function createHistory(){
 		//调用unlisten当前的全局数组将被重置为排除当前listener的
 		//数组
 		changeListeners.push(listen);
+		if(location){
+			//没有缓存过location
+			listener(location);
+		}else{
+			//hash、brower history获取的方式不同
+			//通过参数传递进来获取计算location的方式
+			var _location = getCurrentLocation();
+			allKeys = [_location.key];
+      		updateLocation(_location);
+		}
 
 		return function(){
 			//过滤掉当前的listener
@@ -110,7 +136,9 @@ function createHashHistory(){
  * 	创建一个history对象
  **/
 	var history = createDOMHistory();
-	
+	function getCurrentLocation(){
+		
+	}
 /**
  *	listen
  *	@param listener {Function}
